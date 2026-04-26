@@ -8,12 +8,18 @@ A hands-on project demonstrating query optimization techniques using MySQL's EXP
 
 10 tables modelling a simplified e-commerce system:
 
-```
-customers → orders → order_items → products → categories
-                  → payments
-                  → shipments
-         → reviews
-coupons  → coupon_usage
+```mermaid
+erDiagram
+    customers ||--o{ orders : places
+    customers ||--o{ reviews : writes
+    orders ||--o{ order_items : contains
+    orders ||--o{ payments : paid_via
+    orders ||--o{ shipments : shipped_via
+    order_items }o--|| products : references
+    products }o--|| categories : belongs_to
+    coupons ||--o{ coupon_usage : tracked_in
+    customers ||--o{ coupon_usage : uses
+    orders ||--o{ coupon_usage : applied_to
 ```
 
 ---
